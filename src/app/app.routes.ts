@@ -1,6 +1,4 @@
 import { Routes } from '@angular/router';
-import { AuthLayoutComponent } from './layout/auth-layout/auth-layout.component';
-import { SplashComponent } from './layout/splash/splash.component';
 
 export const routes: Routes = [
   {
@@ -9,8 +7,11 @@ export const routes: Routes = [
       import('./layout/splash/splash.component').then((c) => c.SplashComponent),
   },
   {
-    path: '',
-    component: AuthLayoutComponent,
+    path: 'auth',
+    loadComponent: () =>
+      import('./layout/auth-layout/auth-layout.component').then(
+        (c) => c.AuthLayoutComponent
+      ),
     children: [
       {
         path: 'login',
@@ -18,15 +19,6 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./pages/login/login.component').then((c) => c.LoginComponent),
         title: 'login',
-      },
-      {
-        path: 'courses',
-        // canActivate: [loggedGuard],
-        loadComponent: () =>
-          import('./pages/courses/courses.component').then(
-            (c) => c.CoursesComponent
-          ),
-        title: 'courses',
       },
       {
         path: 'register',
@@ -39,5 +31,38 @@ export const routes: Routes = [
       },
     ],
   },
-  { path: '**', redirectTo: '' },
+  {
+    path: 'student',
+    loadComponent: () =>
+      import('./layout/student-layout/student-layout.component').then(
+        (c) => c.StudentLayoutComponent
+      ),
+    children: [
+      {
+        path: 'courses',
+        // canActivate: [loggedGuard],
+        loadComponent: () =>
+          import('./pages/courses/courses.component').then(
+            (c) => c.CoursesComponent
+          ),
+        title: 'Courses',
+      },
+    ],
+  },
+  {
+    path: 'admin',
+    loadComponent: () =>
+      import('./layout/admin-layout/admin-layout.component').then(
+        (c) => c.AdminLayoutComponent
+      ),
+    // children: [
+    //   {
+    //     path: 'courses',
+    //     // canActivate: [loggedGuard],
+    //     loadComponent: () =>
+    //       import('./pages/courses/courses.component').then((c) => c.CoursesComponent),
+    //     title: 'Courses',
+    //   }
+    // ]
+  },
 ];

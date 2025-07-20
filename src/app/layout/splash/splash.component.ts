@@ -12,7 +12,7 @@ export class SplashComponent {
 
   ngOnInit(): void {
     setTimeout(() => {
-      this.router.navigate(['/courses']);
+      this.router.navigate(['/student/courses']);
     }, 3000);
   }
 }
