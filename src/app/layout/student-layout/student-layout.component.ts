@@ -8,8 +8,6 @@ import { RouterOutlet } from '@angular/router';
   selector: 'app-student-layout',
   imports: [FooterComponent, SidebarComponent, NavbarComponent, RouterOutlet],
   templateUrl: './student-layout.component.html',
-  styleUrl: './student-layout.component.scss'
+  styleUrl: './student-layout.component.scss',
 })
-export class StudentLayoutComponent {
-
-}
+export class StudentLayoutComponent {}

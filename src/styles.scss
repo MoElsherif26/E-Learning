@@ -4,15 +4,13 @@
 @plugin "flowbite/plugin";
 @source "../node_modules/flowbite";
 
-
 /* styles.scss or component-name.component.scss */
-input[type='number']::-webkit-outer-spin-button,
-input[type='number']::-webkit-inner-spin-button {
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-input[type='number'] {
+input[type="number"] {
   -moz-appearance: textfield; /* Firefox */
 }
-

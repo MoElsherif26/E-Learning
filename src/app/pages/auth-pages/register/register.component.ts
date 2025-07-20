@@ -31,7 +31,10 @@ export class RegisterComponent implements OnInit {
         password: ['', [Validators.required, Validators.minLength(6)]],
         confirmPassword: ['', Validators.required],
         nationalId: ['', [Validators.required, Validators.pattern(/^\d{14}$/)]],
-        phoneNumber: ['', [Validators.required, Validators.pattern(/^\d{11}$/)]],
+        phoneNumber: [
+          '',
+          [Validators.required, Validators.pattern(/^\d{11}$/)],
+        ],
         role: ['', Validators.required],
       },
       { validators: this.passwordsMatchValidator }

@@ -1,0 +1,81 @@
+<!-- src/app/pages/students-list/students-list.component.html -->
+
+<div class="p-4 sm:p-6 lg:p-8">
+  <div class="max-w-7xl mx-auto">
+    <!-- Page Header -->
+    <div class="mb-6">
+      <h1 class="text-3xl font-bold text-gray-900">Students in the System</h1>
+      <p class="mt-1 text-md text-gray-600">
+        A complete list of all enrolled students and their current progress.
+      </p>
+    </div>
+
+    <!-- Flowbite/Tailwind Table Container -->
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+      <table class="w-full text-sm text-left text-gray-500">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+          <tr>
+            <th scope="col" class="px-6 py-3">Student Name</th>
+            <th scope="col" class="px-6 py-3">Current Course</th>
+            <th scope="col" class="px-6 py-3">Enrolled On</th>
+            <th scope="col" class="px-6 py-3">Progress</th>
+            <th scope="col" class="px-6 py-3">
+              <span class="sr-only">Edit</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Loop through each student -->
+          <tr
+            *ngFor="let student of students"
+            class="bg-white hover:bg-gray-50"
+          >
+            <!-- Student Name and Avatar -->
+            <th
+              scope="row"
+              class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap"
+            >
+              <img
+                class="w-10 h-10 rounded-full"
+                [src]="student.avatarUrl"
+                [alt]="student.name + ' avatar'"
+              />
+              <div class="pl-3">
+                <div class="text-base font-semibold">{{ student.name }}</div>
+                <div class="font-normal text-gray-500">{{ student.email }}</div>
+              </div>
+            </th>
+            <!-- Current Course -->
+            <td class="px-6 py-4">
+              {{ student.currentCourse }}
+            </td>
+            <!-- Enrollment Date -->
+            <td class="px-6 py-4">
+              {{ student.enrollmentDate }}
+            </td>
+            <!-- Progress Bar -->
+            <td class="px-6 py-4">
+              <div class="flex items-center">
+                <div class="w-full bg-gray-200 rounded-full h-2.5 mr-2">
+                  <div
+                    class="bg-blue-600 h-2.5 rounded-full"
+                    [style.width.%]="student.progress"
+                  ></div>
+                </div>
+                <span class="text-xs font-medium text-gray-700"
+                  >{{ student.progress }}%</span
+                >
+              </div>
+            </td>
+            <!-- Action Link (e.g., Edit) -->
+            <td class="px-6 py-4 text-right">
+              <a href="#" class="font-medium text-blue-600 hover:underline"
+                >View Details</a
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

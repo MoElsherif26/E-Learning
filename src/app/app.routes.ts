@@ -1,11 +1,13 @@
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
+  // Empty
   {
     path: '',
     loadComponent: () =>
       import('./layout/splash/splash.component').then((c) => c.SplashComponent),
   },
+  // Auth
   {
     path: 'auth',
     loadComponent: () =>
@@ -17,20 +19,23 @@ export const routes: Routes = [
         path: 'login',
         // canActivate: [loggedGuard],
         loadComponent: () =>
-          import('./pages/login/login.component').then((c) => c.LoginComponent),
+          import('./pages/auth-pages/login/login.component').then(
+            (c) => c.LoginComponent
+          ),
         title: 'login',
       },
       {
         path: 'register',
         // canActivate: [loggedGuard],
         loadComponent: () =>
-          import('./pages/register/register.component').then(
+          import('./pages/auth-pages/register/register.component').then(
             (c) => c.RegisterComponent
           ),
         title: 'register',
       },
     ],
   },
+  // Student
   {
     path: 'student',
     loadComponent: () =>
@@ -42,27 +47,67 @@ export const routes: Routes = [
         path: 'courses',
         // canActivate: [loggedGuard],
         loadComponent: () =>
-          import('./pages/courses/courses.component').then(
+          import('./pages/student-pages/courses/courses.component').then(
             (c) => c.CoursesComponent
           ),
         title: 'Courses',
       },
     ],
   },
+  // Instructor
+  {
+    path: 'instructor',
+    loadComponent: () =>
+      import('./layout/instructor-layout/instructor-layout.component').then(
+        (c) => c.InstructorLayoutComponent
+      ),
+    children: [
+      {
+        path: 'courses',
+        // canActivate: [loggedGuard],
+        loadComponent: () =>
+          import('./pages/instructor-pages/courses/courses.component').then(
+            (c) => c.CoursesComponent
+          ),
+        title: 'Courses',
+      },
+    ],
+  },
+  // Admin
   {
     path: 'admin',
     loadComponent: () =>
       import('./layout/admin-layout/admin-layout.component').then(
         (c) => c.AdminLayoutComponent
       ),
-    // children: [
-    //   {
-    //     path: 'courses',
-    //     // canActivate: [loggedGuard],
-    //     loadComponent: () =>
-    //       import('./pages/courses/courses.component').then((c) => c.CoursesComponent),
-    //     title: 'Courses',
-    //   }
-    // ]
+    children: [
+      {
+        path: 'instructors',
+        // canActivate: [loggedGuard],
+        loadComponent: () =>
+          import('./pages/admin-pages/instructors/instructors.component').then(
+            (c) => c.InstructorsComponent
+          ),
+        title: 'Instructors',
+      },
+      {
+        path: 'students',
+        // canActivate: [loggedGuard],
+        loadComponent: () =>
+          import('./pages/admin-pages/students/students.component').then(
+            (c) => c.StudentsComponent
+          ),
+        title: 'Students',
+      },
+      {
+        path: 'courses',
+        // canActivate: [loggedGuard],
+        loadComponent: () =>
+          import('./pages/admin-pages/courses/courses.component').then(
+            (c) => c.CoursesComponent
+          ),
+        title: 'Courses',
+      },
+    ],
   },
 ];

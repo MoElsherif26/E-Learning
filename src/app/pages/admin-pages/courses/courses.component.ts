@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ICourse } from '../../core/interfaces/ICourse';
+import { ICourse } from '../../../core/interfaces/ICourse';
 
 @Component({
   selector: 'app-courses',
