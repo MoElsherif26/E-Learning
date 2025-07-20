@@ -1,0 +1,61 @@
+#splash-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeOut 1s ease 3s forwards;
+}
+
+.splash-content {
+  text-align: center;
+  animation: scaleIn 1s ease;
+}
+
+.splash-logo {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 1.5rem;
+  animation: pulse 2s infinite;
+}
+
+.splash-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+.splash-subtitle {
+  font-size: 1.25rem;
+  color: #ffffff;
+}
+
+// Animations
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
