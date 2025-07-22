@@ -3,7 +3,7 @@ import { Injectable, signal } from '@angular/core';
 @Injectable({
   providedIn: 'root',
 })
-export class SidebarService {
-  showSideBar = signal<boolean>(true);
+export class NavbarService {
+  showLogout = signal<boolean>(false);
   constructor() {}
 }

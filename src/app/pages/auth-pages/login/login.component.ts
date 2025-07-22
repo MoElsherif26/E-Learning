@@ -1,28 +1,32 @@
 import { NgIf } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {
-  AbstractControl,
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { AuthService } from '../../../core/services/api_calls/auth.service';
+import { LOCALSTORAGEKEYS } from '../../../core/constants';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, NgIf],
+  imports: [ReactiveFormsModule, NgIf, RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
 export class LoginComponent implements OnInit {
-  registerForm!: FormGroup;
+  loginForm!: FormGroup;
   showPassword = false;
   showConfirmPassword = false;
+  authService = inject(AuthService);
+  router = inject(Router);
 
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
-    this.registerForm = this.fb.group({
+    this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
@@ -33,17 +37,28 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.registerForm.invalid) {
-      this.markFormGroupTouched(this.registerForm);
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched();
       return;
     }
 
-    console.log('Form submitted:', this.registerForm.value);
-  }
+    this.authService.login(this.loginForm.value).subscribe({
+      next: (res: any) => {
+        localStorage.setItem(LOCALSTORAGEKEYS.USER_TOKEN, res.bearerToken);
+        console.log(res.bearerToken);
+        this.authService.decodeData();
+        console.log(this.authService.userData);
 
-  private markFormGroupTouched(formGroup: FormGroup): void {
-    Object.values(formGroup.controls).forEach((control: AbstractControl) => {
-      control.markAsTouched();
+        if (this.authService.userData?.role === 'Student') {
+          console.log('Student');
+          this.router.navigate(['/student/courses']);
+        } else if (this.authService.userData?.role === 'Teacher') {
+          console.log('Teacher');
+          this.router.navigate(['/instructor/courses']);
+        }
+      },
     });
+
+    console.log('Form submitted:', this.loginForm.value);
   }
 }

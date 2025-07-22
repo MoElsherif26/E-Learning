@@ -1,15 +1,19 @@
 import { Routes } from '@angular/router';
+import { loggedGuard } from './core/guards/logged.guard';
+import { studentGuard } from './core/guards/student.guard';
+import { teacherGuard } from './core/guards/teacher.guard';
 
 export const routes: Routes = [
   // Empty
   {
     path: '',
     loadComponent: () =>
-      import('./layout/splash/splash.component').then((c) => c.SplashComponent),
+      import('./layout/blank-layout/blank-layout.component').then((c) => c.BlankLayoutComponent),
   },
   // Auth
   {
     path: 'auth',
+    canActivate: [loggedGuard],
     loadComponent: () =>
       import('./layout/auth-layout/auth-layout.component').then(
         (c) => c.AuthLayoutComponent
@@ -17,7 +21,6 @@ export const routes: Routes = [
     children: [
       {
         path: 'login',
-        // canActivate: [loggedGuard],
         loadComponent: () =>
           import('./pages/auth-pages/login/login.component').then(
             (c) => c.LoginComponent
@@ -26,7 +29,6 @@ export const routes: Routes = [
       },
       {
         path: 'register',
-        // canActivate: [loggedGuard],
         loadComponent: () =>
           import('./pages/auth-pages/register/register.component').then(
             (c) => c.RegisterComponent
@@ -38,6 +40,7 @@ export const routes: Routes = [
   // Student
   {
     path: 'student',
+    canActivate: [studentGuard],
     loadComponent: () =>
       import('./layout/student-layout/student-layout.component').then(
         (c) => c.StudentLayoutComponent
@@ -45,7 +48,6 @@ export const routes: Routes = [
     children: [
       {
         path: 'courses',
-        // canActivate: [loggedGuard],
         loadComponent: () =>
           import('./pages/student-pages/courses/courses.component').then(
             (c) => c.CoursesComponent
@@ -54,19 +56,19 @@ export const routes: Routes = [
       },
     ],
   },
-  // Instructor
+  // Teacher
   {
-    path: 'instructor',
+    path: 'teacher',
+    canActivate: [teacherGuard],
     loadComponent: () =>
-      import('./layout/instructor-layout/instructor-layout.component').then(
-        (c) => c.InstructorLayoutComponent
+      import('./layout/teacher-layout/teacher-layout.component').then(
+        (c) => c.TeacherLayoutComponent
       ),
     children: [
       {
         path: 'courses',
-        // canActivate: [loggedGuard],
         loadComponent: () =>
-          import('./pages/instructor-pages/courses/courses.component').then(
+          import('./pages/teacher-pages/courses/courses.component').then(
             (c) => c.CoursesComponent
           ),
         title: 'Courses',
@@ -85,8 +87,8 @@ export const routes: Routes = [
         path: 'instructors',
         // canActivate: [loggedGuard],
         loadComponent: () =>
-          import('./pages/admin-pages/instructors/instructors.component').then(
-            (c) => c.InstructorsComponent
+          import('./pages/admin-pages/teachers/teachers.component').then(
+            (c) => c.TeachersComponent
           ),
         title: 'Instructors',
       },
@@ -109,5 +111,15 @@ export const routes: Routes = [
         title: 'Courses',
       },
     ],
+  },
+
+  // Not found
+  {
+    path: '**',
+    loadComponent: () =>
+      import('./pages/not-found/not-found.component').then(
+        (c) => c.NotFoundComponent
+      ),
+    title: 'not-found',
   },
 ];

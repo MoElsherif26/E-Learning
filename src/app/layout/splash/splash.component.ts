@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-splash',
@@ -7,12 +6,4 @@ import { Router } from '@angular/router';
   templateUrl: './splash.component.html',
   styleUrl: './splash.component.scss',
 })
-export class SplashComponent {
-  constructor(private router: Router) {}
-
-  ngOnInit(): void {
-    setTimeout(() => {
-      this.router.navigate(['/admin/instructors']);
-    }, 3000);
-  }
-}
+export class SplashComponent {}

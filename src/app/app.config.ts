@@ -5,11 +5,17 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { routes } from './app.routes';
 import {
   provideClientHydration,
-  withEventReplay
+  withEventReplay,
 } from '@angular/platform-browser';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withFetch,
+  withInterceptors,
+} from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr } from 'ngx-toastr';
+import { handleErrorInterceptor } from './core/interceptors/handle-error.interceptor';
+import { loaderInterceptor } from './core/interceptors/loader.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,8 +24,11 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(withEventReplay()),
     BrowserAnimationsModule,
     NgxSpinnerModule,
-    provideHttpClient(withFetch()),
+    provideHttpClient(
+      withFetch(),
+      withInterceptors([handleErrorInterceptor, loaderInterceptor])
+    ),
     provideAnimations(),
     provideToastr()
-  ],
+  ]
 };

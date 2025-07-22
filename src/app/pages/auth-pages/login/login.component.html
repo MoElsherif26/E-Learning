@@ -1,8 +1,8 @@
 <div class="flex items-start justify-center p-6">
   <form
-    [formGroup]="registerForm"
+    [formGroup]="loginForm"
     (ngSubmit)="onSubmit()"
-    class="bg-white shadow-xl rounded-2xl p-10 w-full max-w-4xl space-y-6"
+    class="bg-white shadow-2xl rounded-2xl p-10 w-full max-w-4xl space-y-6"
   >
     <h2 class="text-3xl font-bold text-center text-gray-800">Login</h2>
 
@@ -20,8 +20,7 @@
         />
         <p
           *ngIf="
-            registerForm.get('email')?.touched &&
-            registerForm.get('email')?.invalid
+            loginForm.get('email')?.touched && loginForm.get('email')?.invalid
           "
           class="text-red-600 text-xs mt-1"
         >
@@ -85,8 +84,8 @@
         </button>
         <p
           *ngIf="
-            registerForm.get('password')?.touched &&
-            registerForm.get('password')?.invalid
+            loginForm.get('password')?.touched &&
+            loginForm.get('password')?.invalid
           "
           class="text-red-600 text-xs mt-1"
         >
@@ -102,5 +101,12 @@
     >
       Login
     </button>
+    <div>
+      <a
+        class="text-blue-800 text-lg duration-200 hover:underline"
+        routerLink="/auth/register"
+        >Do not have account yet? Create New One.</a
+      >
+    </div>
   </form>
 </div>

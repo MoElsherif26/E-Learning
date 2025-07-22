@@ -3,12 +3,12 @@ import { NgFor, NgIf } from '@angular/common';
 import { IInstructor } from '../../../core/interfaces/IInstructor';
 
 @Component({
-  selector: 'app-instructors',
+  selector: 'app-teachers',
   imports: [NgIf, NgFor],
-  templateUrl: './instructors.component.html',
-  styleUrl: './instructors.component.scss',
+  templateUrl: './teachers.component.html',
+  styleUrl: './teachers.component.scss',
 })
-export class InstructorsComponent {
+export class TeachersComponent {
   // Array of fake instructor data
   instructors: IInstructor[] = [
     {
