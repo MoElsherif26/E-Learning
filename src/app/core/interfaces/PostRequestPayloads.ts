@@ -13,3 +13,8 @@ export interface LoginRequestDto {
   email: string;
   password: string;
 }
+
+export interface AddStudentToClassroomRequestDto {
+  studentId?: string;
+  classroomId: number;
+}

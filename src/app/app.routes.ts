@@ -47,12 +47,20 @@ export const routes: Routes = [
       ),
     children: [
       {
-        path: 'courses',
+        path: 'classrooms',
         loadComponent: () =>
-          import('./pages/student-pages/courses/courses.component').then(
-            (c) => c.CoursesComponent
+          import('./pages/student-pages/classrooms/classrooms.component').then(
+            (c) => c.ClassroomsComponent
           ),
-        title: 'Courses',
+        title: 'Classrooms',
+      },
+      {
+        path: 'my-classrooms',
+        loadComponent: () =>
+          import('./pages/student-pages/my-classrooms/my-classrooms.component').then(
+            (c) => c.MyClassroomsComponent
+          ),
+        title: 'My Classrooms',
       },
     ],
   },

@@ -12,7 +12,7 @@ export const loggedGuard: CanActivateFn = (route, state) => {
   if (isPlatformBrowser(id)) {
     if (localStorage.getItem(LOCALSTORAGEKEYS.USER_TOKEN)) {
       if (authService.userData?.role === 'Student')
-        router.navigate(['/student/courses']);
+        router.navigate(['/student/classrooms']);
       else if (authService.userData?.role === 'Admin')
         router.navigate(['/admin/instructors']);
       else if (authService.userData?.role === 'Teacher')

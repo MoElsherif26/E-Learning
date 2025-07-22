@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
 
         if (this.authService.userData?.role === 'Student') {
           console.log('Student');
-          this.router.navigate(['/student/courses']);
+          this.router.navigate(['/student/classrooms']);
         } else if (this.authService.userData?.role === 'Teacher') {
           console.log('Teacher');
           this.router.navigate(['/instructor/courses']);
