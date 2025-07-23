@@ -4,7 +4,12 @@ import {
   LoginRequestDto,
   RegisterRequestDto,
 } from '../../interfaces/PostRequestPayloads';
-import { ENDPOINTS, LOCALSTORAGEKEYS, ROUTES, UserTokenData } from '../../constants';
+import {
+  ENDPOINTS,
+  LOCALSTORAGEKEYS,
+  ROUTES,
+  UserTokenData,
+} from '../../constants';
 import { jwtDecode } from 'jwt-decode';
 import { Router } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';

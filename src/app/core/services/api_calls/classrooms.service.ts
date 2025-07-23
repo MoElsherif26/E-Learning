@@ -4,13 +4,12 @@ import { ENDPOINTS } from '../../constants';
 import { AddClassroomRequestDto } from '../../interfaces/PostRequestPayloads';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ClassroomsService {
-
   http = inject(HttpClient);
 
-  constructor() { }
+  constructor() {}
 
   getClassrooms() {
     return this.http.get(ENDPOINTS.CLASSROOM.GET_CLASSROOMS);

@@ -2,9 +2,6 @@ import {
   Component,
   computed,
   inject,
-  Input,
-  input,
-  signal,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { SidebarService } from '../../core/services/shared/sidebar.service';

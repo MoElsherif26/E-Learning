@@ -21,13 +21,17 @@
       <p class="mb-3 font-normal text-gray-700">{{ classroom.description }}</p>
 
       <!-- 3. Add `mt-auto` here. This pushes this div to the very bottom of the flex container -->
-      <div class="flex flex-wrap gap-3 items-center mt-auto">
+      <div class="flex justify-between flex-wrap gap-3 items-center mt-auto">
         <button
           (click)="addStudentToClassroom(classroom.id)"
           class="bg-blue-900 cursor-pointer hover:bg-blue-800 text-white rounded-lg px-4 py-2"
         >
           Join Now
         </button>
+        <span
+          class="bg-blue-900 text-white flex items-center text-xs font-medium px-2.5 py-1 rounded-full"
+          >{{ classroom.subjectName }}</span
+        >
       </div>
     </div>
   </div>

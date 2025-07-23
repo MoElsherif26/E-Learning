@@ -1,26 +1,26 @@
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
   <!-- The @for loop starts here -->
-  @for (course of courses; track $index) {
+  <!-- @for (course of courses; track $index) { -->
   <!-- 1. Make the card a flex container that lays out its children in a column -->
   <div class="flex flex-col border border-gray-200 rounded-lg shadow-sm">
     <a class="block">
       <!-- The image is a flex item -->
-      <img
-        class="rounded-t-lg w-full h-[250px]"
-        [src]="getRandomImage(course)"
-        alt=""
-      />
+      <img class="rounded-t-lg w-full h-[250px]" [src]="demoImage" alt="" />
     </a>
     <!-- 2. Make the content area a flex container that also grows to fill available space -->
     <div class="p-5 flex flex-col flex-grow">
       <a class="block">
         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">
-          {{ course.name }}
+          {{ classroom.name }}
         </h5>
       </a>
-      <p class="mb-3 font-normal text-gray-700">{{ course.description }}</p>
+      <p class="mb-3 font-normal text-gray-700">{{ classroom.description }}</p>
+      <span
+        class="bg-blue-900 text-white w-fit flex items-center text-xs font-medium px-2.5 py-1 rounded-full"
+        >{{ classroom.subjectName }}</span
+      >
     </div>
   </div>
-  }
+  <!-- } -->
   <!-- The @for loop ends here -->
 </div>

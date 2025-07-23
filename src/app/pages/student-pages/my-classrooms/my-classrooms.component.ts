@@ -8,10 +8,9 @@ import { ToastrService } from 'ngx-toastr';
   selector: 'app-my-classrooms',
   imports: [],
   templateUrl: './my-classrooms.component.html',
-  styleUrl: './my-classrooms.component.scss'
+  styleUrl: './my-classrooms.component.scss',
 })
 export class MyClassroomsComponent {
-
   authService = inject(AuthService);
   studentClassroomService = inject(StudentClassroomService);
   classRooms!: Classroom[];
@@ -26,11 +25,13 @@ export class MyClassroomsComponent {
   ];
 
   ngOnInit(): void {
-    this.studentClassroomService.getClassroomsByStudentId(this.authService.userData?.Id).subscribe({
-      next: (res: any) => {
-        this.classRooms = res;
-      },
-    });
+    this.studentClassroomService
+      .getClassroomsByStudentId(this.authService.userData?.Id)
+      .subscribe({
+        next: (res: any) => {
+          this.classRooms = res;
+        },
+      });
   }
 
   getRandomImage(classroom: Classroom): string {

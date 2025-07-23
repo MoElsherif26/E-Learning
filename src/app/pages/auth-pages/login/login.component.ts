@@ -47,6 +47,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem(LOCALSTORAGEKEYS.USER_TOKEN, res.bearerToken);
         console.log(res.bearerToken);
         this.authService.decodeData();
+        console.log(this.authService.userData?.Id);
         console.log(this.authService.userData);
 
         if (this.authService.userData?.role === 'Student') {
@@ -54,7 +55,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate([ROUTES.STUDENT.CLASSROOMS]);
         } else if (this.authService.userData?.role === 'Teacher') {
           console.log('Teacher');
-          this.router.navigate(['/instructor/courses']);
+          this.router.navigate([ROUTES.TEACHER.CLASSROOM]);
         } else if (this.authService.userData?.role === 'Admin') {
           console.log('Admin');
           this.router.navigate([ROUTES.ADMIN.TEACHERS]);

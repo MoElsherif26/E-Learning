@@ -3,7 +3,6 @@ import { inject, PLATFORM_ID } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { LOCALSTORAGEKEYS, ROUTES } from '../constants';
 import { AuthService } from '../services/api_calls/auth.service';
-8;
 
 export const loggedGuard: CanActivateFn = (route, state) => {
   const id = inject(PLATFORM_ID);
@@ -16,7 +15,7 @@ export const loggedGuard: CanActivateFn = (route, state) => {
       else if (authService.userData?.role === 'Admin')
         router.navigate([ROUTES.ADMIN.TEACHERS]);
       else if (authService.userData?.role === 'Teacher')
-        router.navigate(['/instructor/courses']);
+        router.navigate([ROUTES.TEACHER.CLASSROOM]);
       return false;
     } else {
       return true;

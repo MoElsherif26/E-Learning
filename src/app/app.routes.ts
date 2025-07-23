@@ -8,7 +8,9 @@ export const routes: Routes = [
   {
     path: '',
     loadComponent: () =>
-      import('./layout/blank-layout/blank-layout.component').then((c) => c.BlankLayoutComponent),
+      import('./layout/blank-layout/blank-layout.component').then(
+        (c) => c.BlankLayoutComponent
+      ),
   },
   // Auth
   {
@@ -57,9 +59,9 @@ export const routes: Routes = [
       {
         path: 'my-classrooms',
         loadComponent: () =>
-          import('./pages/student-pages/my-classrooms/my-classrooms.component').then(
-            (c) => c.MyClassroomsComponent
-          ),
+          import(
+            './pages/student-pages/my-classrooms/my-classrooms.component'
+          ).then((c) => c.MyClassroomsComponent),
         title: 'My Classrooms',
       },
     ],
@@ -74,12 +76,12 @@ export const routes: Routes = [
       ),
     children: [
       {
-        path: 'courses',
+        path: 'classroom',
         loadComponent: () =>
-          import('./pages/teacher-pages/courses/courses.component').then(
-            (c) => c.CoursesComponent
+          import('./pages/teacher-pages/classroom/classroom.component').then(
+            (c) => c.ClassroomComponent
           ),
-        title: 'Courses',
+        title: 'Classroom',
       },
     ],
   },

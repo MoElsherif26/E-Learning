@@ -3,11 +3,10 @@ import { Injectable } from '@angular/core';
 import { ENDPOINTS } from '../../constants';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class StudentService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getStudents() {
     return this.http.get(ENDPOINTS.STUDENT.GET_STUDENTS);

@@ -6,6 +6,7 @@ import { Subject } from '../../../core/interfaces/Subject';
 import {
   FormBuilder,
   FormGroup,
+  FormsModule,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
@@ -17,9 +18,9 @@ import { Teacher } from '../../../core/interfaces/Teacher';
 import { TeacherClassroomService } from '../../../core/services/api_calls/teacher-classroom.service';
 
 @Component({
-  selector: 'app-courses',
+  selector: 'app-classrooms',
   // Add NgIf and NgClass to imports
-  imports: [ReactiveFormsModule, NgIf, NgClass],
+  imports: [ReactiveFormsModule, NgIf, NgClass, FormsModule],
   templateUrl: './classrooms.component.html',
   styleUrl: './classrooms.component.scss',
 })
@@ -28,6 +29,9 @@ export class ClassroomsComponent implements OnInit {
   addClassroomForm!: FormGroup;
   classRooms!: Classroom[];
   modal = signal(false);
+  classroomId!: number;
+  teacherModal = signal(false);
+  addTeacherForm!: FormGroup;
   teachers!: Teacher[];
   demoImages: string[] = [
     'imgs/courses/1.jpg',
@@ -56,11 +60,11 @@ export class ClassroomsComponent implements OnInit {
       name: ['', [Validators.required]],
       description: ['', [Validators.required]],
     });
+    this.addTeacherForm = this.fb.group({
+      teacherId: ['', [Validators.required]],
+    });
   }
 
-  
-
-  // Helper getter for easy access to form controls in the template
   get f() {
     return this.addClassroomForm;
   }
@@ -96,12 +100,45 @@ export class ClassroomsComponent implements OnInit {
     });
   }
 
+  addTeacherToClassroom() {
+    if (this.addTeacherForm.invalid) {
+      this.addTeacherForm.markAllAsTouched();
+      return;
+    }
+
+    const tId = this.addTeacherForm.get('teacherId')?.value;
+    console.log(tId);
+    console.log(this.classroomId);
+    this.teacherClassroomService
+      .addTeacherToClassroom({
+        teacherId: tId as string,
+        classroomId: this.classroomId,
+      })
+      .subscribe({
+        next: () => {
+          this.toastr.success('Teacher Joined This Classroom');
+          this.closeTeacherModal();
+          this.addTeacherForm.reset();
+        },
+      });
+  }
+
   openModal() {
     this.modal.set(true);
   }
 
   closeModal() {
     this.modal.set(false);
+  }
+
+  openTeacherModal(classroomId: number) {
+    this.teacherModal.set(true);
+    this.classroomId = classroomId;
+    this.addTeacherForm.reset();
+  }
+
+  closeTeacherModal() {
+    this.teacherModal.set(false);
   }
 
   onCreateClassroom() {

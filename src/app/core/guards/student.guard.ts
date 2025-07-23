@@ -3,7 +3,6 @@ import { inject, PLATFORM_ID } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { LOCALSTORAGEKEYS, ROUTES } from '../constants';
 import { AuthService } from '../services/api_calls/auth.service';
-8;
 
 export const studentGuard: CanActivateFn = (route, state) => {
   const id = inject(PLATFORM_ID);

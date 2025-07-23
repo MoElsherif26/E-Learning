@@ -18,6 +18,8 @@ export class StudentClassroomService {
     );
   }
   getClassroomsByStudentId(studentId?: string) {
-    return this.http.get(`${ENDPOINTS.STUDENT_CLASSROOM.GET_CLASSROOMS_BY_STUDENT_ID}/${studentId}`);
+    return this.http.get(
+      `${ENDPOINTS.STUDENT_CLASSROOM.GET_CLASSROOMS_BY_STUDENT_ID}/${studentId}`
+    );
   }
 }

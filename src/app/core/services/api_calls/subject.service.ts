@@ -4,10 +4,9 @@ import { AddSubjectRequestDto } from '../../interfaces/PostRequestPayloads';
 import { ENDPOINTS } from '../../constants';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SubjectService {
-
   http = inject(HttpClient);
 
   addSubject(payload: AddSubjectRequestDto) {
@@ -17,5 +16,4 @@ export class SubjectService {
   getSubjects() {
     return this.http.get(ENDPOINTS.SUBJECT.GET_SUBJECTS);
   }
-
 }

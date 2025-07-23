@@ -20,10 +20,12 @@ export class BlankLayoutComponent implements OnInit {
   ngOnInit(): void {
     this.authService.decodeData();
 
+    console.log(this.authService.userData?.Id);
+
     if (this.authService.userData?.role === 'Admin')
       this.route = ROUTES.ADMIN.TEACHERS;
     else if (this.authService.userData?.role === 'Teacher')
-      this.route = ROUTES.TEACHER.MY_CLASSROOMS;
+      this.route = ROUTES.TEACHER.CLASSROOM;
     else if (this.authService.userData?.role === 'Student')
       this.route = ROUTES.STUDENT.MY_CLASSROOMS;
     else this.route = ROUTES.AUTH.LOGIN;

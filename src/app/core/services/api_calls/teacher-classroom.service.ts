@@ -4,10 +4,9 @@ import { AddTeacherToClassroomRequestDto } from '../../interfaces/PostRequestPay
 import { ENDPOINTS } from '../../constants';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TeacherClassroomService {
-
   http = inject(HttpClient);
 
   constructor() {}
@@ -16,6 +15,12 @@ export class TeacherClassroomService {
     return this.http.post(
       ENDPOINTS.TEACHER_CLASSROOM.ADD_TEACHER_TO_CLASSROOM,
       payload
+    );
+  }
+
+  getClassroombyTeacherId(teacherId?: string) {
+    return this.http.get(
+      `${ENDPOINTS.TEACHER_CLASSROOM.GET_CLASSROOM_BY_TEACHER_ID}/${teacherId}`
     );
   }
 }

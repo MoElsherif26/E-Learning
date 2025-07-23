@@ -6,7 +6,7 @@ import { StudentClassroomService } from '../../../core/services/api_calls/studen
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-courses',
+  selector: 'app-classrooms',
   imports: [],
   templateUrl: './classrooms.component.html',
   styleUrl: './classrooms.component.scss',
@@ -43,7 +43,7 @@ export class ClassroomsComponent implements OnInit {
       })
       .subscribe({
         next: (res: any) => {
-          this.toastr.success("You Joined This Class Room");
+          this.toastr.success('You Joined This Classroom');
         },
       });
   }
