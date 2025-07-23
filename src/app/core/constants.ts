@@ -10,10 +10,45 @@ export const ENDPOINTS = {
   },
   CLASSROOM: {
     GET_CLASSROOMS: `${BASE_URL}/Classroom/GetClassrooms`,
+    ADD_CLASSROOM: `${BASE_URL}/Classroom/AddClassroom`
   },
   STUDENT_CLASSROOM: {
     ADD_STUDENT_TO_CLASSROOM: `${BASE_URL}/StudentClassroom/AddStudentToClassroom`,
-    GET_CLASSROOMS_BY_STUDENT_ID: `${BASE_URL}/StudentClassroom/GetClassroomsByStudentId`
+    GET_CLASSROOMS_BY_STUDENT_ID: `${BASE_URL}/StudentClassroom/GetClassroomsByStudentId`,
+  },
+  TEACHER_CLASSROOM: {
+    ADD_TEACHER_TO_CLASSROOM: `${BASE_URL}/TeacherClassroom/AddTeacherToClassroom`,
+  },
+  SUBJECT: {
+    ADD_SUBJECT: `${BASE_URL}/Subject/AddSubject`,
+    GET_SUBJECTS: `${BASE_URL}/Subject/GetSubjects`
+  },
+  STUDENT: {
+    GET_STUDENTS: `${BASE_URL}/Student/GetStudents`
+  },
+  TEACHER: {
+    GET_TEACHERS: `${BASE_URL}/Teacher/GetTeachers`
+  }
+};
+
+export const ROUTES = {
+  AUTH: {
+    REGISTER: '/auth/register',
+    LOGIN: '/auth/login',
+  },
+  STUDENT: {
+    MY_CLASSROOMS: '/student/classrooms',
+    CLASSROOMS: '/student/my-classrooms',
+  },
+  TEACHER: {
+    MY_CLASSROOMS: '/student/classrooms',
+    CLASSROOMS: '/student/my-classrooms',
+  },
+  ADMIN: {
+    STUDENTS: '/admin/students',
+    TEACHERS: '/admin/teachers',
+    CLASSROOMS: '/admin/classrooms',
+    SUBJECTS: '/admin/subjets'
   },
 };
 

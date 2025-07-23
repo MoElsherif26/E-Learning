@@ -1,7 +1,7 @@
 import { isPlatformBrowser } from '@angular/common';
 import { inject, PLATFORM_ID } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { LOCALSTORAGEKEYS } from '../constants';
+import { LOCALSTORAGEKEYS, ROUTES } from '../constants';
 import { AuthService } from '../services/api_calls/auth.service';
 
 export const adminGuard: CanActivateFn = (route, state) => {
@@ -15,7 +15,7 @@ export const adminGuard: CanActivateFn = (route, state) => {
       if (authService.userData?.role === 'Admin') return true;
       return false;
     } else {
-      router.navigate(['/auth/login']);
+      router.navigate([ROUTES.AUTH.LOGIN]);
       return false;
     }
   } else {

@@ -1,0 +1,300 @@
+<div class="p-4 sm:p-6 lg:p-8">
+  <!-- Header: Title and Add Button -->
+  <div class="sm:flex sm:items-center sm:justify-between mb-6">
+    <div>
+      <h2 class="text-2xl font-bold text-gray-900 sm:text-3xl">Classrooms</h2>
+      <p class="mt-1 text-sm text-gray-500">
+        Manage and browse all available classrooms.
+      </p>
+    </div>
+    <div class="mt-4 sm:mt-0">
+      <button
+        (click)="openModal()"
+        type="button"
+        class="inline-flex cursor-pointer items-center justify-center rounded-lg border border-transparent bg-blue-600 px-5 py-3 text-white text-base font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+      >
+        <svg
+          class="w-5 h-5 mr-2"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+            clip-rule="evenodd"
+          />
+        </svg>
+        Add Classroom
+      </button>
+    </div>
+  </div>
+
+  <!-- Classroom Cards Grid -->
+  <div
+    *ngIf="classRooms && classRooms.length > 0; else noClassroomsTemplate"
+    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+  >
+    @for (classroom of classRooms; track classroom.id) {
+    <!-- Card Container -->
+    <div
+      class="flex flex-col bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden transition hover:shadow-lg"
+    >
+      <a class="block">
+        <img
+          class="w-full h-48 object-cover"
+          [src]="getRandomImage(classroom)"
+          alt="Classroom Image"
+        />
+      </a>
+      <!-- Card Content -->
+      <div class="p-5 flex flex-col flex-grow">
+        <div>
+          <a class="block">
+            <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900">
+              {{ classroom.name }}
+            </h5>
+          </a>
+          <p class="mb-4 font-normal text-gray-600 text-sm flex-grow">
+            {{ classroom.description }}
+          </p>
+        </div>
+        <!-- Card Footer with Subject Badge -->
+        <div class="mt-auto pt-4 border-t border-gray-100">
+          <span
+            class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-1 rounded-full"
+          >
+            {{ classroom.subjectName }}
+          </span>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+
+  <!-- Empty State Template -->
+  <ng-template #noClassroomsTemplate>
+    <div
+      class="text-center py-20 px-4 border-2 border-dashed border-gray-300 rounded-lg bg-gray-50"
+    >
+      <svg
+        class="mx-auto h-12 w-12 text-gray-400"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        aria-hidden="true"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"
+        />
+      </svg>
+      <h3 class="mt-2 text-sm font-medium text-gray-900">
+        No Classrooms Found
+      </h3>
+      <p class="mt-1 text-sm text-gray-500">
+        <span *ngIf="!classRooms">Loading classrooms...</span>
+        <span *ngIf="classRooms && classRooms.length === 0"
+          >Get started by adding a new classroom.</span
+        >
+      </p>
+      <div class="mt-6">
+        <button
+          (click)="openModal()"
+          type="button"
+          class="inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+        >
+          <svg
+            class="-ml-1 mr-2 h-5 w-5"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          Add Classroom
+        </button>
+      </div>
+    </div>
+  </ng-template>
+</div>
+
+<!-- Main modal -->
+<div
+  *ngIf="modal()"
+  class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-900 bg-opacity-50"
+>
+  <div class="relative w-full max-w-md max-h-full">
+    <!-- Modal content -->
+    <div class="relative bg-white rounded-lg shadow">
+      <!-- Modal header -->
+      <div
+        class="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-200"
+      >
+        <h3 class="text-lg font-semibold text-gray-900">
+          Create New Classroom
+        </h3>
+        <button
+          (click)="closeModal()"
+          type="button"
+          class="text-gray-400 cursor-pointer bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
+        >
+          <svg
+            class="w-3 h-3"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 14 14"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+            />
+          </svg>
+          <span class="sr-only">Close modal</span>
+        </button>
+      </div>
+      <!-- Modal body -->
+      <form
+        [formGroup]="addClassroomForm"
+        (ngSubmit)="onCreateClassroom()"
+        class="p-4 md:p-5"
+      >
+        <div class="grid gap-4 mb-4 grid-cols-2">
+          <!-- Classroom Name -->
+          <div class="col-span-2">
+            <label
+              for="name"
+              class="block mb-2 text-sm font-medium text-gray-900"
+              >Classroom Name</label
+            >
+            <input
+              type="text"
+              formControlName="name"
+              id="name"
+              class="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
+              [ngClass]="{
+                'border-gray-300 focus:ring-blue-500 focus:border-blue-500':
+                  !f.get('name')?.invalid,
+                'border-red-500 focus:ring-red-500 focus:border-red-500':
+                  f.get('name')?.invalid &&
+                  (f.get('name')?.dirty || f.get('name')?.touched)
+              }"
+              placeholder="e.g., Advanced Calculus"
+            />
+            <div
+              *ngIf="
+                f.get('name')?.invalid &&
+                (f.get('name')?.dirty || f.get('name')?.touched)
+              "
+              class="mt-1 text-xs text-red-600"
+            >
+              <div *ngIf="f.get('name')?.errors?.['required']">
+                Classroom name is required.
+              </div>
+            </div>
+          </div>
+
+          <!-- Subject -->
+          <div class="col-span-2">
+            <label
+              for="subjectId"
+              class="block mb-2 text-sm font-medium text-gray-900"
+              >Subject</label
+            >
+            <select
+              id="subjectId"
+              formControlName="subjectId"
+              class="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5"
+              [ngClass]="{
+                'border-gray-300 focus:ring-blue-500 focus:border-blue-500':
+                  !f.get('subjectId')?.invalid,
+                'border-red-500 focus:ring-red-500 focus:border-red-500':
+                  f.get('subjectId')?.invalid &&
+                  (f.get('subjectId')?.dirty || f.get('subjectId')?.touched)
+              }"
+            >
+              <option value="" disabled>Select Subject</option>
+              @for (subject of subjects; track subject.id) {
+              <option [value]="subject.id">{{ subject.name }}</option>
+              }
+            </select>
+            <div
+              *ngIf="
+                f.get('subjectId')?.invalid &&
+                (f.get('subjectId')?.dirty || f.get('subjectId')?.touched)
+              "
+              class="mt-1 text-xs text-red-600"
+            >
+              <div *ngIf="f.get('subjectId')?.errors?.['required']">
+                Please select a subject.
+              </div>
+            </div>
+          </div>
+
+          <!-- Classroom Description -->
+          <div class="col-span-2">
+            <label
+              for="description"
+              class="block mb-2 text-sm font-medium text-gray-900"
+              >Description</label
+            >
+            <textarea
+              id="description"
+              formControlName="description"
+              rows="4"
+              class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border"
+              [ngClass]="{
+                'border-gray-300 focus:ring-blue-500 focus:border-blue-500':
+                  !f.get('description')?.invalid,
+                'border-red-500 focus:ring-red-500 focus:border-red-500':
+                  f.get('description')?.invalid &&
+                  (f.get('description')?.dirty || f.get('description')?.touched)
+              }"
+              placeholder="Write a brief description here"
+            ></textarea>
+            <div
+              *ngIf="
+                f.get('description')?.invalid &&
+                (f.get('description')?.dirty || f.get('description')?.touched)
+              "
+              class="mt-1 text-xs text-red-600"
+            >
+              <div *ngIf="f.get('description')?.errors?.['required']">
+                A description is required.
+              </div>
+            </div>
+          </div>
+        </div>
+        <button
+          [disabled]="addClassroomForm.invalid"
+          type="submit"
+          class="text-white w-full inline-flex items-center justify-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center disabled:bg-blue-400 disabled:cursor-not-allowed"
+        >
+          <svg
+            class="me-1 -ms-1 w-5 h-5"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          Add New Classroom
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

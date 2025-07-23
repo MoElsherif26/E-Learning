@@ -1,7 +1,7 @@
 import { isPlatformBrowser } from '@angular/common';
 import { inject, PLATFORM_ID } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { LOCALSTORAGEKEYS } from '../constants';
+import { LOCALSTORAGEKEYS, ROUTES } from '../constants';
 import { AuthService } from '../services/api_calls/auth.service';
 8;
 
@@ -12,9 +12,9 @@ export const loggedGuard: CanActivateFn = (route, state) => {
   if (isPlatformBrowser(id)) {
     if (localStorage.getItem(LOCALSTORAGEKEYS.USER_TOKEN)) {
       if (authService.userData?.role === 'Student')
-        router.navigate(['/student/classrooms']);
+        router.navigate([ROUTES.STUDENT.CLASSROOMS]);
       else if (authService.userData?.role === 'Admin')
-        router.navigate(['/admin/instructors']);
+        router.navigate([ROUTES.ADMIN.TEACHERS]);
       else if (authService.userData?.role === 'Teacher')
         router.navigate(['/instructor/courses']);
       return false;

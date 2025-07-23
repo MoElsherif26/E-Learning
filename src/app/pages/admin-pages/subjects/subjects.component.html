@@ -1,13 +1,28 @@
+<div class="flex flex-wrap gap-3 mb-4">
+  <input
+    [(ngModel)]="name"
+    class="w-[70%] px-4 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+    placeholder="Add New Subject"
+    type="text"
+  />
+  <button
+    (click)="onCreateSubject()"
+    [disabled]="name ? false : true"
+    class="bg-blue-900 px-10 cursor-pointer hover:bg-blue-800 text-white font-semibold py-3 rounded-lg text-lg transition-all"
+  >
+    <i class="fa fa-plus"></i> Add
+  </button>
+</div>
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
   <!-- The @for loop starts here -->
-  @for (course of courses; track $index) {
+  @for (subject of subjects; track $index) {
   <!-- 1. Make the card a flex container that lays out its children in a column -->
   <div class="flex flex-col border border-gray-200 rounded-lg shadow-sm">
     <a class="block">
       <!-- The image is a flex item -->
       <img
         class="rounded-t-lg w-full h-[250px]"
-        [src]="getRandomImage(course)"
+        [src]="getRandomImage(subject)"
         alt=""
       />
     </a>
@@ -15,10 +30,10 @@
     <div class="p-5 flex flex-col flex-grow">
       <a class="block">
         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">
-          {{ course.name }}
+          {{ subject.name }}
         </h5>
       </a>
-      <p class="mb-3 font-normal text-gray-700">{{ course.description }}</p>
+      <!-- <p class="mb-3 font-normal text-gray-700">{{ course.description }}</p> -->
     </div>
   </div>
   }

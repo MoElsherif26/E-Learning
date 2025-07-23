@@ -92,17 +92,15 @@ export const routes: Routes = [
       ),
     children: [
       {
-        path: 'instructors',
-        // canActivate: [loggedGuard],
+        path: 'teachers',
         loadComponent: () =>
           import('./pages/admin-pages/teachers/teachers.component').then(
             (c) => c.TeachersComponent
           ),
-        title: 'Instructors',
+        title: 'Teachers',
       },
       {
         path: 'students',
-        // canActivate: [loggedGuard],
         loadComponent: () =>
           import('./pages/admin-pages/students/students.component').then(
             (c) => c.StudentsComponent
@@ -110,13 +108,20 @@ export const routes: Routes = [
         title: 'Students',
       },
       {
-        path: 'courses',
-        // canActivate: [loggedGuard],
+        path: 'classrooms',
         loadComponent: () =>
-          import('./pages/admin-pages/courses/courses.component').then(
-            (c) => c.CoursesComponent
+          import('./pages/admin-pages/classrooms/classrooms.component').then(
+            (c) => c.ClassroomsComponent
           ),
-        title: 'Courses',
+        title: 'Classrooms',
+      },
+      {
+        path: 'subjects',
+        loadComponent: () =>
+          import('./pages/admin-pages/subjects/subjects.component').then(
+            (c) => c.SubjectsComponent
+          ),
+        title: 'Subjects',
       },
     ],
   },

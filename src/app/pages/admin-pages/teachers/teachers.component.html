@@ -1,102 +1,170 @@
-<!-- src/app/pages/instructors-list/instructors-list.component.html -->
-
-<!-- Main container -->
+<!-- Main container with padding -->
 <div class="p-4 sm:p-6 lg:p-8">
-  <div class="max-w-7xl mx-auto">
-    <!-- Page Header -->
-    <div class="mb-8 text-center">
-      <h1 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">
-        Meet Our Instructors
-      </h1>
-      <p class="mt-2 text-lg text-gray-600">
-        World-class experts dedicated to helping you master Generative AI.
+  <!-- Header Section: Title and Add Button -->
+  <div class="sm:flex sm:items-center sm:justify-between mb-6">
+    <div>
+      <h2 class="text-2xl font-bold text-gray-900 sm:text-3xl">Teachers</h2>
+      <p class="mt-1 text-sm text-gray-500">
+        A list of all the teachers in the system.
       </p>
     </div>
 
-    <!-- Responsive Grid for Instructor Cards -->
-    <div
-      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
-    >
-      <!-- Loop through each instructor using *ngFor -->
-      <!-- The card itself is a Flowbite-style card built with Tailwind utilities -->
-      <div
-        *ngFor="let instructor of instructors"
-        class="flex flex-col items-center p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300"
+    <div class="mt-4 sm:mt-0">
+      <button
+        type="button"
+        class="inline-flex items-center justify-center rounded-lg border border-transparent bg-blue-600 px-5 py-3 text-white text-base font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
       >
-        <!-- Avatar -->
-        <img
-          class="w-24 h-24 mb-3 rounded-full shadow-lg"
-          [src]="instructor.avatarUrl"
-          [alt]="instructor.name + ' avatar'"
-        />
-
-        <!-- Name & Title -->
-        <h5 class="mb-1 text-xl font-medium text-gray-900">
-          {{ instructor.name }}
-        </h5>
-        <span class="text-sm text-center text-gray-500">{{
-          instructor.title
-        }}</span>
-
-        <!-- Bio -->
-        <p class="mt-4 text-sm text-center text-gray-600">
-          {{ instructor.bio }}
-        </p>
-
-        <!-- Specialties (Badges) -->
-        <div class="flex flex-wrap justify-center gap-2 mt-4">
-          <span
-            *ngFor="let specialty of instructor.specialties"
-            class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full"
-          >
-            {{ specialty }}
-          </span>
-        </div>
-
-        <!-- Social Links -->
-        <div class="flex mt-6 space-x-3">
-          <a
-            *ngIf="instructor.socialLinks.linkedin"
-            [href]="instructor.socialLinks.linkedin"
-            target="_blank"
-            class="inline-flex items-center justify-center w-9 h-9 text-gray-500 bg-white border border-gray-300 rounded-full hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200"
-          >
-            <!-- LinkedIn SVG Icon -->
-            <svg
-              class="w-4 h-4"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="currentColor"
-              viewBox="0 0 448 512"
-            >
-              <path
-                d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"
-              />
-            </svg>
-            <span class="sr-only">LinkedIn profile</span>
-          </a>
-          <a
-            *ngIf="instructor.socialLinks.twitter"
-            [href]="instructor.socialLinks.twitter"
-            target="_blank"
-            class="inline-flex items-center justify-center w-9 h-9 text-gray-500 bg-white border border-gray-300 rounded-full hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200"
-          >
-            <!-- Twitter SVG Icon -->
-            <svg
-              class="w-4 h-4"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="currentColor"
-              viewBox="0 0 512 512"
-            >
-              <path
-                d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"
-              />
-            </svg>
-            <span class="sr-only">Twitter profile</span>
-          </a>
-        </div>
-      </div>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5 mr-2"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+            clip-rule="evenodd"
+          />
+        </svg>
+        Add Teacher
+      </button>
     </div>
   </div>
+
+  <!-- Conditional Rendering: Show table if teachers exist -->
+  <div
+    *ngIf="teachers && teachers.length > 0; else noTeachersTemplate"
+    class="relative overflow-x-auto shadow-md sm:rounded-lg border border-gray-200"
+  >
+    <table class="w-full text-sm text-left text-gray-600">
+      <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+        <tr>
+          <th scope="col" class="px-6 py-3">Teacher Name</th>
+          <th scope="col" class="px-6 py-3">Contact Info</th>
+          <th scope="col" class="px-6 py-3">National ID</th>
+          <th scope="col" class="px-6 py-3">Address</th>
+          <th scope="col" class="px-6 py-3">Gender</th>
+          <th scope="col" class="px-6 py-3">
+            <span class="sr-only">Actions</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Loop through each teacher using *ngFor -->
+        <tr
+          *ngFor="let teacher of teachers"
+          class="bg-white border-b hover:bg-gray-50"
+        >
+          <!-- Teacher Name and Email -->
+          <th
+            scope="row"
+            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+          >
+            <div class="flex items-center">
+              <!-- You can add a placeholder image here if you have one -->
+              <!-- <img class="w-10 h-10 rounded-full mr-4" src="placeholder.jpg" alt="Avatar of {{ teacher.name }}"> -->
+              <div>
+                <div class="text-base font-semibold">{{ teacher.name }}</div>
+                <div class="font-normal text-gray-500">{{ teacher.email }}</div>
+              </div>
+            </div>
+          </th>
+
+          <!-- Contact Info -->
+          <td class="px-6 py-4">
+            {{ teacher.phoneNumber }}
+          </td>
+
+          <!-- National ID -->
+          <td class="px-6 py-4">
+            {{ teacher.nationalId }}
+          </td>
+
+          <!-- Address -->
+          <td class="px-6 py-4">
+            {{ teacher.address }}
+          </td>
+
+          <!-- Gender -->
+          <td class="px-6 py-4">
+            <span
+              [ngClass]="{
+                'bg-blue-100 text-blue-800':
+                  teacher.gender.toLowerCase() === 'male',
+                'bg-pink-100 text-pink-800':
+                  teacher.gender.toLowerCase() === 'female',
+                'bg-gray-100 text-gray-800':
+                  teacher.gender.toLowerCase() !== 'male' &&
+                  teacher.gender.toLowerCase() !== 'female'
+              }"
+              class="text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full"
+            >
+              {{ teacher.gender }}
+            </span>
+          </td>
+
+          <!-- Actions (Edit/Delete) -->
+          <td class="px-6 py-4 text-right">
+            <a href="#" class="font-medium text-blue-600 hover:underline"
+              >Edit</a
+            >
+            <a href="#" class="font-medium text-red-600 hover:underline ml-4"
+              >Delete</a
+            >
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Fallback Template: Show this if 'teachers' is empty or not yet loaded -->
+  <ng-template #noTeachersTemplate>
+    <div
+      class="text-center py-20 px-4 border-2 border-dashed border-gray-300 rounded-lg bg-gray-50"
+    >
+      <svg
+        class="mx-auto h-12 w-12 text-gray-400"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        aria-hidden="true"
+      >
+        <path
+          vector-effect="non-scaling-stroke"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"
+        />
+      </svg>
+      <h3 class="mt-2 text-sm font-medium text-gray-900">No Teachers Found</h3>
+      <p class="mt-1 text-sm text-gray-500">
+        <!-- This message dynamically changes based on whether the data is loading or truly empty -->
+        <span *ngIf="!teachers">Loading teachers...</span>
+        <span *ngIf="teachers && teachers.length === 0"
+          >Get started by adding a new teacher.</span
+        >
+      </p>
+      <div class="mt-6">
+        <button
+          type="button"
+          class="inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="-ml-1 mr-2 h-5 w-5"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          Add Teacher
+        </button>
+      </div>
+    </div>
+  </ng-template>
 </div>

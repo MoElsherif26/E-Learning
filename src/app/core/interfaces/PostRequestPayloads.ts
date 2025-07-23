@@ -18,3 +18,18 @@ export interface AddStudentToClassroomRequestDto {
   studentId?: string;
   classroomId: number;
 }
+
+export interface AddTeacherToClassroomRequestDto {
+  teacherId?: string;
+  classroomId: number;
+}
+
+export interface AddSubjectRequestDto {
+  name: string;
+}
+
+export interface AddClassroomRequestDto {
+  subjectId: number;
+  name: string;
+  description: string;
+}

@@ -12,6 +12,7 @@ import {
 import { AuthService } from '../../../core/services/api_calls/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router, RouterLink } from '@angular/router';
+import { ROUTES } from '../../../core/constants';
 
 @Component({
   selector: 'app-register',
@@ -86,7 +87,7 @@ export class RegisterComponent implements OnInit {
         next: (res: any) => {
           console.log(res.message);
           this.toastr.success(res.message);
-          this.router.navigate(['/login']);
+          this.router.navigate([ROUTES.AUTH.LOGIN]);
         },
       });
     } else if (this.registerForm.get('role')?.value === 'student') {
@@ -94,7 +95,7 @@ export class RegisterComponent implements OnInit {
         next: (res: any) => {
           console.log(res.message);
           this.toastr.success(res.message);
-          this.router.navigate(['/auth/login']);
+          this.router.navigate([ROUTES.AUTH.LOGIN]);
         },
       });
     }

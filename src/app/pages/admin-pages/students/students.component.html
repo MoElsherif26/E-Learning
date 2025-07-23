@@ -1,81 +1,170 @@
-<!-- src/app/pages/students-list/students-list.component.html -->
-
+<!-- Main container with padding -->
 <div class="p-4 sm:p-6 lg:p-8">
-  <div class="max-w-7xl mx-auto">
-    <!-- Page Header -->
-    <div class="mb-6">
-      <h1 class="text-3xl font-bold text-gray-900">Students in the System</h1>
-      <p class="mt-1 text-md text-gray-600">
-        A complete list of all enrolled students and their current progress.
+  <!-- Header Section: Title and Add Button -->
+  <div class="sm:flex sm:items-center sm:justify-between mb-6">
+    <div>
+      <h2 class="text-2xl font-bold text-gray-900 sm:text-3xl">Students</h2>
+      <p class="mt-1 text-sm text-gray-500">
+        A list of all the students in the system.
       </p>
     </div>
 
-    <!-- Flowbite/Tailwind Table Container -->
-    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-      <table class="w-full text-sm text-left text-gray-500">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-100">
-          <tr>
-            <th scope="col" class="px-6 py-3">Student Name</th>
-            <th scope="col" class="px-6 py-3">Current Course</th>
-            <th scope="col" class="px-6 py-3">Enrolled On</th>
-            <th scope="col" class="px-6 py-3">Progress</th>
-            <th scope="col" class="px-6 py-3">
-              <span class="sr-only">Edit</span>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Loop through each student -->
-          <tr
-            *ngFor="let student of students"
-            class="bg-white hover:bg-gray-50"
-          >
-            <!-- Student Name and Avatar -->
-            <th
-              scope="row"
-              class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap"
-            >
-              <img
-                class="w-10 h-10 rounded-full"
-                [src]="student.avatarUrl"
-                [alt]="student.name + ' avatar'"
-              />
-              <div class="pl-3">
-                <div class="text-base font-semibold">{{ student.name }}</div>
-                <div class="font-normal text-gray-500">{{ student.email }}</div>
-              </div>
-            </th>
-            <!-- Current Course -->
-            <td class="px-6 py-4">
-              {{ student.currentCourse }}
-            </td>
-            <!-- Enrollment Date -->
-            <td class="px-6 py-4">
-              {{ student.enrollmentDate }}
-            </td>
-            <!-- Progress Bar -->
-            <td class="px-6 py-4">
-              <div class="flex items-center">
-                <div class="w-full bg-gray-200 rounded-full h-2.5 mr-2">
-                  <div
-                    class="bg-blue-600 h-2.5 rounded-full"
-                    [style.width.%]="student.progress"
-                  ></div>
-                </div>
-                <span class="text-xs font-medium text-gray-700"
-                  >{{ student.progress }}%</span
-                >
-              </div>
-            </td>
-            <!-- Action Link (e.g., Edit) -->
-            <td class="px-6 py-4 text-right">
-              <a href="#" class="font-medium text-blue-600 hover:underline"
-                >View Details</a
-              >
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="mt-4 sm:mt-0">
+      <button
+        type="button"
+        class="inline-flex items-center justify-center rounded-lg border border-transparent bg-blue-600 px-5 py-3 text-white text-base font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5 mr-2"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+            clip-rule="evenodd"
+          />
+        </svg>
+        Add Student
+      </button>
     </div>
   </div>
+
+  <!-- Conditional Rendering: Show table if students exist -->
+  <div
+    *ngIf="students && students.length > 0; else nostudentsTemplate"
+    class="relative overflow-x-auto shadow-md sm:rounded-lg border border-gray-200"
+  >
+    <table class="w-full text-sm text-left text-gray-600">
+      <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+        <tr>
+          <th scope="col" class="px-6 py-3">Student Name</th>
+          <th scope="col" class="px-6 py-3">Contact Info</th>
+          <th scope="col" class="px-6 py-3">National ID</th>
+          <th scope="col" class="px-6 py-3">Address</th>
+          <th scope="col" class="px-6 py-3">Gender</th>
+          <th scope="col" class="px-6 py-3">
+            <span class="sr-only">Actions</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Loop through each Student using *ngFor -->
+        <tr
+          *ngFor="let Student of students"
+          class="bg-white border-b hover:bg-gray-50"
+        >
+          <!-- Student Name and Email -->
+          <th
+            scope="row"
+            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+          >
+            <div class="flex items-center">
+              <!-- You can add a placeholder image here if you have one -->
+              <!-- <img class="w-10 h-10 rounded-full mr-4" src="placeholder.jpg" alt="Avatar of {{ Student.name }}"> -->
+              <div>
+                <div class="text-base font-semibold">{{ Student.name }}</div>
+                <div class="font-normal text-gray-500">{{ Student.email }}</div>
+              </div>
+            </div>
+          </th>
+
+          <!-- Contact Info -->
+          <td class="px-6 py-4">
+            {{ Student.phoneNumber }}
+          </td>
+
+          <!-- National ID -->
+          <td class="px-6 py-4">
+            {{ Student.nationalId }}
+          </td>
+
+          <!-- Address -->
+          <td class="px-6 py-4">
+            {{ Student.address }}
+          </td>
+
+          <!-- Gender -->
+          <td class="px-6 py-4">
+            <span
+              [ngClass]="{
+                'bg-blue-100 text-blue-800':
+                  Student.gender.toLowerCase() === 'male',
+                'bg-pink-100 text-pink-800':
+                  Student.gender.toLowerCase() === 'female',
+                'bg-gray-100 text-gray-800':
+                  Student.gender.toLowerCase() !== 'male' &&
+                  Student.gender.toLowerCase() !== 'female'
+              }"
+              class="text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full"
+            >
+              {{ Student.gender }}
+            </span>
+          </td>
+
+          <!-- Actions (Edit/Delete) -->
+          <td class="px-6 py-4 text-right">
+            <a href="#" class="font-medium text-blue-600 hover:underline"
+              >Edit</a
+            >
+            <a href="#" class="font-medium text-red-600 hover:underline ml-4"
+              >Delete</a
+            >
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Fallback Template: Show this if 'students' is empty or not yet loaded -->
+  <ng-template #nostudentsTemplate>
+    <div
+      class="text-center py-20 px-4 border-2 border-dashed border-gray-300 rounded-lg bg-gray-50"
+    >
+      <svg
+        class="mx-auto h-12 w-12 text-gray-400"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        aria-hidden="true"
+      >
+        <path
+          vector-effect="non-scaling-stroke"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"
+        />
+      </svg>
+      <h3 class="mt-2 text-sm font-medium text-gray-900">No students Found</h3>
+      <p class="mt-1 text-sm text-gray-500">
+        <!-- This message dynamically changes based on whether the data is loading or truly empty -->
+        <span *ngIf="!students">Loading students...</span>
+        <span *ngIf="students && students.length === 0"
+          >Get started by adding a new Student.</span
+        >
+      </p>
+      <div class="mt-6">
+        <button
+          type="button"
+          class="inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="-ml-1 mr-2 h-5 w-5"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          Add Student
+        </button>
+      </div>
+    </div>
+  </ng-template>
 </div>

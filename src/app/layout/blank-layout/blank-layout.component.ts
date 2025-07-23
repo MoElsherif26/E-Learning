@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, inject, OnInit } from '@angular/core';
 import { FooterComponent } from '../footer/footer.component';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { SplashComponent } from '../splash/splash.component';
+import { AuthService } from '../../core/services/api_calls/auth.service';
+import { ROUTES } from '../../core/constants';
 
 @Component({
   selector: 'app-blank-layout',
@@ -10,13 +12,24 @@ import { SplashComponent } from '../splash/splash.component';
   templateUrl: './blank-layout.component.html',
   styleUrl: './blank-layout.component.scss',
 })
-export class BlankLayoutComponent {
+export class BlankLayoutComponent implements OnInit {
   isLoading = true; // 3. Loading flag
+  authService = inject(AuthService);
+  route: string = '';
 
   ngOnInit(): void {
-    // Simulate app initialization time (e.g., fetching user data, config, etc.)
+    this.authService.decodeData();
+
+    if (this.authService.userData?.role === 'Admin')
+      this.route = ROUTES.ADMIN.TEACHERS;
+    else if (this.authService.userData?.role === 'Teacher')
+      this.route = ROUTES.TEACHER.MY_CLASSROOMS;
+    else if (this.authService.userData?.role === 'Student')
+      this.route = ROUTES.STUDENT.MY_CLASSROOMS;
+    else this.route = ROUTES.AUTH.LOGIN;
+
     setTimeout(() => {
       this.isLoading = false;
-    }, 1000); // Hide splash screen after 3 seconds
+    }, 1000);
   }
 }

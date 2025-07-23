@@ -7,7 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { AuthService } from '../../../core/services/api_calls/auth.service';
-import { LOCALSTORAGEKEYS } from '../../../core/constants';
+import { LOCALSTORAGEKEYS, ROUTES } from '../../../core/constants';
 import { Router, RouterLink } from '@angular/router';
 
 @Component({
@@ -51,10 +51,13 @@ export class LoginComponent implements OnInit {
 
         if (this.authService.userData?.role === 'Student') {
           console.log('Student');
-          this.router.navigate(['/student/classrooms']);
+          this.router.navigate([ROUTES.STUDENT.CLASSROOMS]);
         } else if (this.authService.userData?.role === 'Teacher') {
           console.log('Teacher');
           this.router.navigate(['/instructor/courses']);
+        } else if (this.authService.userData?.role === 'Admin') {
+          console.log('Admin');
+          this.router.navigate([ROUTES.ADMIN.TEACHERS]);
         }
       },
     });
