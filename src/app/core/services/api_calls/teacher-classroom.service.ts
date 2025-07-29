@@ -20,7 +20,12 @@ export class TeacherClassroomService {
 
   getClassroombyTeacherId(teacherId?: string) {
     return this.http.get(
-      `${ENDPOINTS.TEACHER_CLASSROOM.GET_CLASSROOM_BY_TEACHER_ID}/${teacherId}`
+      `${ENDPOINTS.TEACHER_CLASSROOM.GET_CLASSROOM_BY_TEACHER_ID}/${teacherId}`,
+      {
+        headers: {
+          'X-Skip-Toastr': 'true',
+        },
+      }
     );
   }
 }

@@ -2,6 +2,8 @@ import { AuthService } from './../../../core/services/api_calls/auth.service';
 import { TeacherClassroomService } from './../../../core/services/api_calls/teacher-classroom.service';
 import { Component, inject, OnInit, AfterViewInit } from '@angular/core';
 import { Classroom } from '../../../core/interfaces/Classroom';
+import { catchError, throwError } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-classroom',
@@ -15,6 +17,7 @@ export class ClassroomComponent implements OnInit {
   }
   teacherClassroomService = inject(TeacherClassroomService);
   authService = inject(AuthService);
+  toastr = inject(ToastrService);
   demoImage: string = 'imgs/courses/3.jpg';
 
   // demoImage: string[] = [
@@ -34,10 +37,19 @@ export class ClassroomComponent implements OnInit {
     this.authService.decodeData();
     this.teacherClassroomService
       .getClassroombyTeacherId(this.authService.userData?.Id as string)
+      // .pipe(
+      //   catchError((err) => {
+      //     this.toastr.error('You are not assigned to classroom yet');
+      //     return throwError(() => err);
+      //   })
+      // )
       .subscribe({
         next: (res: any) => {
           this.classroom = res;
         },
+        error: () => {
+          this.toastr.error('You are not assigned to classroom yet');
+        }
       });
   }
 

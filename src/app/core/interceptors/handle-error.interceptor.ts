@@ -9,7 +9,12 @@ export const handleErrorInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(req).pipe(
     catchError((err: HttpErrorResponse) => {
-      toastr.error(err.error.message);
+      const skipErrorToast = req.headers.get('X-Skip-Toastr') === 'true';
+
+      if (!skipErrorToast) {
+        toastr.error(err.error.message || 'An unexpected error occurred');
+      }
+
       return throwError(() => err);
     })
   );

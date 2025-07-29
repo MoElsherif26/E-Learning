@@ -30,6 +30,9 @@ export const ENDPOINTS = {
   TEACHER: {
     GET_TEACHERS: `${BASE_URL}/Teacher/GetTeachers`,
   },
+  QUESTION_BANK: {
+    ADD_QUESTIONS: `${BASE_URL}/QuestionBank/AddQuestions`
+  }
 };
 
 export const ROUTES = {
@@ -43,6 +46,7 @@ export const ROUTES = {
   },
   TEACHER: {
     CLASSROOM: '/teacher/classroom',
+    QUESTION_BANK: 'teacher/question-bank'
   },
   ADMIN: {
     STUDENTS: '/admin/students',

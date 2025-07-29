@@ -1,3 +1,5 @@
+import { Answer } from "./Answer";
+
 export interface RegisterRequestDto {
   email: string;
   password: string;
@@ -32,4 +34,12 @@ export interface AddClassroomRequestDto {
   subjectId: number;
   name: string;
   description: string;
+}
+
+export interface AddQuestionsRequestDto {
+    classroomId: number;
+    difficultyId: number;
+    questionTypeId: number;
+    questionText: string;
+    answers: Answer[];
 }
